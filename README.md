@@ -16,7 +16,7 @@ Instructions
 2. Create a new `dev` branch, or create a fork of this repo.
 3. Write your code, in various commits so we can see your development timeline. We won't be looking at the time each task took you. We're much more interested in your train of thought!
 4. When finished, create a Pull Request with set-up instructions and an explanation for your solution.
-5. Reply to the thread your having with our HR department telling us that we may start reviewing your code.
+5. Reply to the thread you're having with our HR department telling us that we may start reviewing your code.
 
 Requirements
 ------------
