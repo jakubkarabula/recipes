@@ -30,6 +30,7 @@ Requirements
 - You *SHOULD* use a CSS preprocessor or postprocessor, when you use CSS
 - You *COULD* use CSS-in-JS
 - You *SHOULD* use some kind of server to serve your code, something like [http-server](https://github.com/indexzero/http-server) would do
+- You *SHOULD NOT* commit any external libraries and files into PR
 
 Exercise
 --------
