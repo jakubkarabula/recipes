@@ -25,7 +25,7 @@ Requirements
 - Your code *MUST* be in english (variable names, comments etc..)
 - You *MAY* comment your code wherever you feel necessary
 - You *SHOULD* use webpack
-- You *MAY* design something nice, but you *COULD* also copy your designs from our [website](https://www.hellofresh.com/recipe-archive/collection/light)
+- You *MAY* design something nice, but you *COULD* also copy your designs from our [website](https://www.hellofresh.com/recipes/)
 - You *SHOULD NOT* use jQuery, Twitter's Bootstrap or any other CSS framework
 - You *SHOULD* use a CSS preprocessor or postprocessor, when you use CSS
 - You *COULD* use CSS-in-JS
@@ -53,7 +53,7 @@ This will show all the recipes that are attached.
 The following should be true for this page:
 
 - All the recipes will be displayed here
-- The recipes have to be shown with all the data in the JSON displayed in a user-friendly way
+- The recipes have to be shown with the data in the JSON displayed in a user-friendly way. At least the recipe's `name`, `headline`, `image`, `calories` and `time` need to be displayed.
 - Each recipe can be favorited or unfavorited
 - Each recipe can be rated
 
