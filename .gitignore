@@ -17,6 +17,10 @@ node_modules
 # npm cache directory
 .npm
 
+# We also recommend ignoring package-lock.json to focus the code review on the relevant files
+package-lock.json
+yarn.lock
+
 # don't forget to ignore your compiled app directory
 # lib
 # dist
