@@ -22,6 +22,7 @@ Requirements
 ------------
 
 - You *MUST* write your test with modern HTML and JS (ES6 or ES7, so no TypeScript, CoffeeScript or other superset languages)
+- You *COULD* use javascript frameworks (React, Vue, Angular, etc..)
 - Your code *MUST* be in english (variable names, comments etc..)
 - You *MAY* comment your code wherever you feel necessary
 - You *SHOULD* use webpack
