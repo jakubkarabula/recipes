@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Container from '../components/container'
 import { sizes, MAIN_MAX_WIDTH } from '../components/constants'
@@ -21,7 +21,8 @@ const WelcomeText = styled.span`
   font-size: 18px;
 `
 
-const Login = (props) => (
+const Login = (props) => {
+  return (
   <Container>
     <Card>
       <Form>
@@ -43,5 +44,5 @@ const Login = (props) => (
     </Card>
   </Container>
 )
-
+} 
 export default Login

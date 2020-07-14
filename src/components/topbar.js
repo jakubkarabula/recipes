@@ -7,7 +7,7 @@ import logoImage from '../assets/logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-const TopBarWrapper = styled.div`
+const TopBarWrapper = styled.div` 
   position: fixed;
   top: 0;
   left: 0;
@@ -16,6 +16,7 @@ const TopBarWrapper = styled.div`
   height: ${TOPBAR_HEIGHT}px;
   display: flex;
   justify-content: center;
+  z-index: 100;
 `
 
 const Content = styled.div`
@@ -39,14 +40,14 @@ const TopBar = (props) => (
   <TopBarWrapper>
     <Content>
       <Link to="/">
-        <Logo src={logoImage} />
-      </Link>
-      <Link to="/login">
-        <PrimaryButton>
-          Login <StyledIcon icon={faArrowRight} />
-        </PrimaryButton>
-      </Link>
-    </Content>
+      <Logo src={logoImage} />  
+    </Link>
+    <Link to="/login">
+      <PrimaryButton>
+        Login <StyledIcon icon={faArrowRight} /> 
+      </PrimaryButton>
+    </Link>
+    </Content>  
   </TopBarWrapper>
 )
 

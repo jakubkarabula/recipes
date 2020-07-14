@@ -1,15 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 import { pallette, sizes } from './constants'
-import { faStar as Star } from '@fortawesome/free-regular-svg-icons'
-import { faStar as SolidStar, faCalculator, faClock } from '@fortawesome/free-solid-svg-icons'
+import { faStar as Star, faHeart as Heart } from '@fortawesome/free-regular-svg-icons'
+import { faStar as SolidStar, faCalculator, faClock, faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Rating from './rating'
+import Favorite from './favorite'
 
 const StyledPreviewCard = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  height: 300px;
   justify-content: space-between;
+  height: 300px;
+  max-width: 270px;
+  width: 100%;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 30px;
 `
 
 const PreviewImage = styled.img`
@@ -29,24 +37,13 @@ const SubText = styled.span`
 
 const StyledIcon = styled(FontAwesomeIcon)`
   margin-right: 4px;
+  color: #838383;
 `
-
-const Rating = (props) => {
-  const ratingStars = []
-
-  console.log(props)
-  for (let index = 0; index < 5; index++) {
-    ratingStars.push(<StyledIcon icon={
-      index < props.rating ? SolidStar : Star
-    } />)
-  }
-
-  return <div>{ratingStars}</div>
-}
 
 const PreviewCard = (props) => (
   <StyledPreviewCard>
     <PreviewImage src={props.image} />
+    <Favorite {...props} />
 
     <Name>{props.name}</Name>
     <SubText>{props.headline}</SubText>

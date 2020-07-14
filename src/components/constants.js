@@ -25,12 +25,8 @@ export const sizes = {
   big: 16,
 }
 
-const size = {
-  mobileS: '320px',
+export const devices = {
   mobileM: '375px',
-  mobileL: '425px',
   tablet: '768px',
-  laptop: '1024px',
-  laptopL: '1440px',
-  desktop: '2560px'
+  laptop: '1024px'
 }
