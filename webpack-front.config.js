@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   target: "web",
   entry: {
-    app: [path.resolve(__dirname, "src/frontend.js")]
+    app: [path.resolve(__dirname, "src", "client", "client.js")]
   },
   module: {
     rules: [
@@ -35,7 +35,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", 'assets', "index.html")
+      template: path.resolve(__dirname, "src", "client", "assets", "index.html")
     })
   ],
   devtool: 'inline-source-map',

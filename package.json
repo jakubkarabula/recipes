@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development",
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "prettier --write --single-quote 'src/**/*.js'"
+    "prettier": "prettier --write --single-quote 'src/**/*.js'",
+    "db:migrate": "yarn knex migrate:latest",
+    "db:rollback": "yarn knex migrate:rollback",
+    "db:seed": "yarn knex seed:run"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +23,9 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "knex": "^0.21.2",
+    "pg": "^8.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -28,15 +33,19 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
-    "@babel/plugin-transform-arrow-functions": "^7.10.4",
-    "@babel/plugin-transform-template-literals": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@svgr/webpack": "^5.4.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
+    "eslint": "^7.4.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-plugin-standard": "^4.0.1",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "style-loader": "^1.2.1",
     "svg-inline-loader": "^0.8.2",
@@ -44,6 +53,7 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
-    "webpack-node-externals": "^2.5.0"
+    "webpack-node-externals": "^2.5.0",
+    "webpack-shell-plugin": "^0.5.0"
   }
 }

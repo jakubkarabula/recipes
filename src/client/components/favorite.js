@@ -29,13 +29,15 @@ const updateSelection = (currentRating, newRating) => {
 }
 
 const Rating = (props) => {
-  const [favorite, setFavorite] = useState(props.favorite || false) 
+  const [favorite, setFavorite] = useState(props.favorite || false)
   const ratingStars = []
- 
-  return <FavoriteIcon
-    onClick={() => setFavorite(!favorite)}
-    icon={favorite ? SolidHeart : Heart}
-  />
+
+  return (
+    <FavoriteIcon
+      onClick={() => setFavorite(!favorite)}
+      icon={favorite ? SolidHeart : Heart}
+    />
+  )
 }
 
 export default Rating

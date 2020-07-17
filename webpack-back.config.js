@@ -1,10 +1,11 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const WebpackShellPlugin = require('webpack-shell-plugin')
 
-module.exports = {
+const config = {
   target: "node",
   entry: {
-    app: [path.resolve(__dirname, "src", "backend.js")]
+    app: [path.resolve(__dirname, "src", "server", "server.js")]
   },
    module: {
     rules: [
@@ -22,12 +23,19 @@ module.exports = {
     hot: true,
     inline: true,
 
-    host: 'localhost', // Defaults to `localhost`
-    port: 4000, // Defaults to 8080
+    host: 'localhost',
+    port: 4000,
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle-back.js"
   },
   externals: [nodeExternals()],
+  plugins: []
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  config.plugins.push(new WebpackShellPlugin({onBuildEnd: ['nodemon dist/bundle-back.js --watch dist']}));
+}
+
+module.exports = config

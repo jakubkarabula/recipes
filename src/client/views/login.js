@@ -23,26 +23,26 @@ const WelcomeText = styled.span`
 
 const Login = (props) => {
   return (
-  <Container>
-    <Card>
-      <Form>
-        <WelcomeText>Log in to your account</WelcomeText>
+    <Container>
+      <Card>
+        <Form>
+          <WelcomeText>Log in to your account</WelcomeText>
 
-        <InputField type="email" label="Email *" name="email" id="email" />
+          <InputField type="email" label="Email *" name="email" id="email" />
 
-        <InputField
-          type="password"
-          label="Password *"
-          name="password"
-          id="password"
-        />
+          <InputField
+            type="password"
+            label="Password *"
+            name="password"
+            id="password"
+          />
 
-        <PrimaryButton>Login</PrimaryButton>
+          <PrimaryButton>Login</PrimaryButton>
 
-        <Link to="/">Go back to recipies</Link>
-      </Form>
-    </Card>
-  </Container>
-)
-} 
+          <Link to="/">Go back to recipies</Link>
+        </Form>
+      </Card>
+    </Container>
+  )
+}
 export default Login

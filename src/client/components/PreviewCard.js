@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { pallette, sizes } from './constants'
-import { faStar as Star, faHeart as Heart } from '@fortawesome/free-regular-svg-icons'
-import { faStar as SolidStar, faCalculator, faClock, faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Rating from './rating'
 import Favorite from './favorite'
@@ -23,7 +22,8 @@ const StyledPreviewCard = styled.div`
 const PreviewImage = styled.img`
   border-radius: 3px;
   height: 170px;
-  box-shadow: rgba(60,66,87,0.12) 0px 7px 14px 0px, rgba(0,0,0,0.12) 0px 3px 6px 0px;
+  box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px,
+    rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 `
 
 const Name = styled.span`
@@ -47,10 +47,14 @@ const PreviewCard = (props) => (
 
     <Name>{props.name}</Name>
     <SubText>{props.headline}</SubText>
-    <SubText><StyledIcon icon={faCalculator}/> calories: {props.calories}</SubText>
-    <SubText><StyledIcon icon={faClock}/> time: {props.time}</SubText>
+    <SubText>
+      <StyledIcon icon={faCalculator} /> calories: {props.calories}
+    </SubText>
+    <SubText>
+      <StyledIcon icon={faClock} /> time: {props.time}
+    </SubText>
 
-    <Rating {...props} />  
+    <Rating {...props} />
   </StyledPreviewCard>
 )
 
