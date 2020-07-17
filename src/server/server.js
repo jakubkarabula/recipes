@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import apiRouter from './routes/api'
 import session from 'express-session'
+import bodyParser from 'body-parser'
 
 const app = express()
 const port = 4000
@@ -28,6 +29,9 @@ app.use(session(sessionConfig))
 app.use('/api', apiRouter)
 
 app.use(express.static(root))
+app.use(bodyParser)
+app.use(bodyParser.json()) //Make sure u have added this line
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(root + '/index.html'))

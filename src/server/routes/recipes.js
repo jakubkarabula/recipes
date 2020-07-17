@@ -8,13 +8,13 @@ const recipes = express.Router()
 
 recipes.get('/', (req, res) => {
   if (!authorization(req, res)) {
-    const userId =  1 || req.session.user.id
+    const userId = 1 || req.session.user.id
 
     dbConnection
       .select()
       .table('recipes')
       .leftJoin('user_recipes_favorites', {
-        'user_recipes_favorites.recipe_id' : 'recipes.id',
+        'user_recipes_favorites.recipe_id': 'recipes.id',
         'user_recipes_favorites.user_id': userId
       })
       .leftJoin('user_recipes_ratings', {
@@ -30,6 +30,9 @@ recipes.get('/', (req, res) => {
       .select()
       .table('recipes')
       .then((recipes) => res.send(recipes))
+      .leftJoin(dbConnection.select(''), {
+        'average_recipes_ratings.recipe_id': 'recipes.id'
+      })
   }
 })
 
