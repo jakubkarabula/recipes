@@ -3,6 +3,12 @@ import dbConnection from '../dbConnection'
 import favorite from './favorite'
 import rating from './rating'
 import authorization from '../authorization'
+import {
+  RECIPES,
+  USER_RECIPES_RATINGS,
+  USER_RECIPES_FAVORITES,
+  AVERAGE_RECIPES_RATINGS
+} from '../constants'
 
 const recipes = express.Router()
 
@@ -11,28 +17,35 @@ recipes.get('/', (req, res) => {
     const userId = 1 || req.session.user.id
 
     dbConnection
-      .select()
-      .table('recipes')
-      .leftJoin('user_recipes_favorites', {
-        'user_recipes_favorites.recipe_id': 'recipes.id',
-        'user_recipes_favorites.user_id': userId
+      .select(
+        `${RECIPES}.*`,
+        `${AVERAGE_RECIPES_RATINGS}.average_rating`,
+        `${USER_RECIPES_RATINGS}.rating`,
+        `${USER_RECIPES_FAVORITES}.user_id as favorite`
+      )
+      .table(RECIPES)
+      .leftJoin(USER_RECIPES_FAVORITES, {
+        [`${USER_RECIPES_FAVORITES}.recipe_id`]: `${RECIPES}.id`,
+        [`${USER_RECIPES_FAVORITES}.user_id`]: userId
       })
-      .leftJoin('user_recipes_ratings', {
-        'user_recipes_ratings.recipe_id': 'recipes.id',
-        'user_recipes_ratings.user_id': userId
+      .leftJoin(USER_RECIPES_RATINGS, {
+        [`${USER_RECIPES_RATINGS}.recipe_id`]: `${RECIPES}.id`,
+        [`${USER_RECIPES_RATINGS}.user_id`]: userId
       })
-      .leftJoin('average_recipes_ratings', {
-        'average_recipes_ratings.recipe_id': 'recipes.id'
+      .leftJoin(AVERAGE_RECIPES_RATINGS, {
+        [`${AVERAGE_RECIPES_RATINGS}.recipe_id`]: `${RECIPES}.id`
       })
       .then((recipes) => res.send(recipes))
+      .catch((error) => res.status(500).send(error))
   } else {
     dbConnection
-      .select()
-      .table('recipes')
-      .then((recipes) => res.send(recipes))
-      .leftJoin(dbConnection.select(''), {
-        'average_recipes_ratings.recipe_id': 'recipes.id'
+      .select(`${RECIPES}.*`, `${AVERAGE_RECIPES_RATINGS}.average_rating`)
+      .table(RECIPES)
+      .leftJoin(AVERAGE_RECIPES_RATINGS, {
+        [`${AVERAGE_RECIPES_RATINGS}.recipe_id`]: `${RECIPES}.id`
       })
+      .then((recipes) => res.send(recipes))
+      .catch((error) => res.status(500).send(error))
   }
 })
 

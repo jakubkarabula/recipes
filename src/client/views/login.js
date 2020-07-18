@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Container from '../components/container'
-import { sizes, MAIN_MAX_WIDTH } from '../components/constants'
 import Card from '../components/Card'
 import InputField from '../components/InputField'
 import PrimaryButton from '../components/PrimaryButton'
 import Link from '../components/Link'
+import { connect } from 'react-redux'
+import { login } from '../redux/actions'
+import { withRouter } from 'react-router-dom'
+import { compose } from 'redux'
 
 const Form = styled.form`
   max-width: 500px;
@@ -21,11 +24,29 @@ const WelcomeText = styled.span`
   font-size: 18px;
 `
 
+const ErrorText = styled.span`
+  font-size: 16px;
+  color: salmon;
+`
+
+const handleSubmit = (props) => (event) => {
+  event.preventDefault()
+  const formData = Object.fromEntries(new FormData(event.target))
+
+  props.logIn(formData.email, formData.password)
+}
+
 const Login = (props) => {
+  useEffect(() => {
+    if (props.user.email) {
+      props.history.push('/');
+    }
+  })
+
   return (
     <Container>
       <Card>
-        <Form>
+        <Form onSubmit={handleSubmit(props)}>
           <WelcomeText>Log in to your account</WelcomeText>
 
           <InputField type="email" label="Email *" name="email" id="email" />
@@ -37,6 +58,8 @@ const Login = (props) => {
             id="password"
           />
 
+          {props.user.error && <ErrorText>{props.user.error}</ErrorText>}
+
           <PrimaryButton>Login</PrimaryButton>
 
           <Link to="/">Go back to recipies</Link>
@@ -45,4 +68,15 @@ const Login = (props) => {
     </Container>
   )
 }
-export default Login
+
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  logIn: (email, password) => dispatch(login(email, password))
+})
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(Login)

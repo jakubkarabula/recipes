@@ -3,6 +3,8 @@ import path from 'path'
 import apiRouter from './routes/api'
 import session from 'express-session'
 import bodyParser from 'body-parser'
+import cors from 'cors'
+import expressSanitizer from 'express-sanitizer'
 
 const app = express()
 const port = 4000
@@ -26,12 +28,14 @@ if (isProduction) {
 
 app.use(session(sessionConfig))
 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(cors())
+app.use(expressSanitizer())
+
 app.use('/api', apiRouter)
 
 app.use(express.static(root))
-app.use(bodyParser)
-app.use(bodyParser.json()) //Make sure u have added this line
-app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(root + '/index.html'))
