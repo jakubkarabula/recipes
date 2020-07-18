@@ -8,11 +8,9 @@ const user = express.Router()
 const tableName = USERS
 
 user.get('/', (req, res) => {
-  if (req.session.user) {
-    return res.status(200).send(req.session.user)
-  }
+  authorization(req, res, true)
 
-  res.status(401)
+  return res.status(200).send(req.session.user)
 })
 
 user.post('/login', (req, res) => {
@@ -26,7 +24,10 @@ user.post('/login', (req, res) => {
     .then((users) => {
       if (users.length === 1) {
         req.session.user = users[0]
-        return res.status(200).send(req.session.user)
+
+        return req.session.save(() => {
+          res.status(200).send(req.session.user)
+        })
       }
       res.status(404).send({ error: 'failed to sign in' })
     })
@@ -40,7 +41,7 @@ user.get('/logout', (req, res) => {
     if (error) {
       return res.status(500).send(error)
     }
-    res.status(200)
+    return res.status(200).send({})
   })
 })
 

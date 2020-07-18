@@ -10,21 +10,21 @@ export const insertIfDoesNotExist = (req, res, send = true) => (
   where,
   object
 ) => {
-  dbConnection
+  return dbConnection
     .select()
     .table(tableName)
     .where(where)
     .then((rows) => {
       if (rows.length > 0 && send) {
-        res.status(200)
+        return res.status(200).send({})
       }
 
-      dbConnection
+      return dbConnection
         .table(tableName)
         .insert(object)
         .then(() => {
           if (send) {
-            res.status(201)
+            return res.status(201).send({})
           }
         })
         .catch((error) => res.status(500).send(error))
@@ -32,30 +32,26 @@ export const insertIfDoesNotExist = (req, res, send = true) => (
     .catch((error) => res.status(500).send(error))
 }
 
-export const deleteIfExists = (req, res) => (
-  tableName,
-  where,
-  object,
-  send = true
-) => {
-  dbConnection
+export const deleteIfExists = (req, res) => (tableName, where, send = true) => {
+  return dbConnection
     .select()
     .table(tableName)
     .where(where)
     .then((rows) => {
       if (rows.length > 0) {
-        dbConnection
+        return dbConnection
           .table(tableName)
-          .del(object)
+          .where(where)
+          .del()
           .then(() => {
             if (send) {
-              res.status(200)
+              return res.status(200).send({})
             }
           })
           .catch((error) => res.status(500).send(error))
       }
 
-      res.status(404)
+      return res.status(404).send({})
     })
     .catch((error) => res.status(500).send(error))
 }
@@ -66,28 +62,31 @@ export const updateOrInsert = (req, res) => (
   object,
   send = true
 ) => {
-  dbConnection
+  return dbConnection
     .select()
     .table(tableName)
     .where(where)
     .then((rows) => {
       if (rows.length > 0) {
-        rows
+        return dbConnection
+          .select()
+          .table(tableName)
+          .where(where)
           .update(object)
           .then(() => {
             if (send) {
-              res.status(200)
+              return res.status(200).send({})
             }
           })
           .catch((error) => res.status(500).send(error))
       }
 
-      dbConnection
+      return dbConnection
         .table(tableName)
         .insert(object)
         .then(() => {
           if (send) {
-            res.status(201)
+            return res.status(201).send({})
           }
         })
         .catch((error) => res.status(500).send(error))

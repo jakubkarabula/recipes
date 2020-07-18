@@ -13,8 +13,8 @@ import {
 const recipes = express.Router()
 
 recipes.get('/', (req, res) => {
-  if (!authorization(req, res)) {
-    const userId = 1 || req.session.user.id
+  if (authorization(req, res)) {
+    const userId = req.session.user.id
 
     dbConnection
       .select(

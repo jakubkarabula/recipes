@@ -15,7 +15,7 @@ const root = isProduction ? '.' : './dist'
 const sessionConfig = {
   secret: '8e96a83e-0c49-4ab4-9dc9-35915c605717',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     maxAge: 60000
   }

@@ -39,7 +39,7 @@ const handleSubmit = (props) => (event) => {
 const Login = (props) => {
   useEffect(() => {
     if (props.user.email) {
-      props.history.push('/');
+      props.history.push('/')
     }
   })
 
@@ -76,6 +76,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   logIn: (email, password) => dispatch(login(email, password))
 })
+
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter

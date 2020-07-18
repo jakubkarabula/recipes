@@ -4,6 +4,8 @@ import { pallette, sizes } from './constants'
 import { faHeart as Heart } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { favoriteRecipe, unfavoriteRecipe } from '../redux/actions'
+import { connect } from 'react-redux'
 
 const FavoriteIcon = styled(FontAwesomeIcon)`
   position: absolute;
@@ -20,24 +22,38 @@ const FavoriteIcon = styled(FontAwesomeIcon)`
   }
 `
 
-const updateSelection = (currentRating, newRating) => {
-  if (currentRating === newRating + 1) {
-    return 0
+const useFavorite = (props) => {
+  const [favorite, setFavorite] = useState(props.favorite || false)
+
+  const updateFavorite = (favorite) => {
+    if (favorite) {
+      props.favoriteRecipe(props.id)
+    } else {
+      props.unfavoriteRecipe(props.id)
+    }
+
+    setFavorite(favorite)
   }
 
-  return newRating + 1
+  return [favorite, updateFavorite]
 }
 
-const Rating = (props) => {
-  const [favorite, setFavorite] = useState(props.favorite || false)
-  const ratingStars = []
+const Favorite = (props) => {
+  const [favorite, updateFavorite] = useFavorite(props)
 
   return (
     <FavoriteIcon
-      onClick={() => setFavorite(!favorite)}
+      onClick={() => updateFavorite(!favorite)}
       icon={favorite ? SolidHeart : Heart}
     />
   )
 }
 
-export default Rating
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+  favoriteRecipe: (id) => dispatch(favoriteRecipe(id)),
+  unfavoriteRecipe: (id) => dispatch(unfavoriteRecipe(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorite)

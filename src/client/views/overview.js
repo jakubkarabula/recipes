@@ -1,56 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Container from '../components/container'
 import PreviewCard from '../components/PreviewCard'
-import { devices, MAIN_MAX_WIDTH } from '../components/constants'
-
-const recipes = [
-  {
-    name: 'Sweet Chili Pork Bowls',
-    headline: 'with Bell Pepper & Peanuts',
-    image:
-      'https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_300/hellofresh_s3/image/5efb358e43975d50ea6927d2-03092082.jpg',
-    calories: '10 kCal',
-    time: '2h',
-    rating: 2
-  },
-  {
-    name: 'Sweet Chili Pork Bowls',
-    headline: 'with Bell Pepper & Peanuts',
-    image:
-      'https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_300/hellofresh_s3/image/5efb358e43975d50ea6927d2-03092082.jpg',
-    calories: '10 kCal',
-    time: '2h',
-    rating: 2
-  },
-  {
-    name: 'Sweet Chili Pork Bowls',
-    headline: 'with Bell Pepper & Peanuts',
-    image:
-      'https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_300/hellofresh_s3/image/5efb358e43975d50ea6927d2-03092082.jpg',
-    calories: '10 kCal',
-    time: '2h',
-    rating: 2
-  },
-  {
-    name: 'Sweet Chili Pork Bowls',
-    headline: 'with Bell Pepper & Peanuts',
-    image:
-      'https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_300/hellofresh_s3/image/5efb358e43975d50ea6927d2-03092082.jpg',
-    calories: '10 kCal',
-    time: '2h',
-    rating: 2
-  },
-  {
-    name: 'Sweet Chili Pork Bowls',
-    headline: 'with Bell Pepper & Peanuts',
-    image:
-      'https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_300/hellofresh_s3/image/5efb358e43975d50ea6927d2-03092082.jpg',
-    calories: '10 kCal',
-    time: '2h',
-    rating: 2
-  }
-]
+import { devices } from '../components/constants'
+import { connect } from 'react-redux'
+import { getRecipes } from '../redux/actions'
+import { withRouter } from 'react-router-dom'
+import { compose } from 'redux'
 
 const RecipesGrid = styled.div`
   max-width: 300px;
@@ -64,21 +20,44 @@ const RecipesGrid = styled.div`
   }
 `
 
-const Overview = (props) => (
-  <Container>
-    <RecipesGrid>
-      {recipes.map((recipe) => (
-        <PreviewCard
-          name={recipe.name}
-          headline={recipe.headline}
-          image={recipe.image}
-          calories={recipe.calories}
-          time={recipe.time}
-          rating={recipe.rating}
-        />
-      ))}
-    </RecipesGrid>
-  </Container>
-)
+const Overview = (props) => {
+  useEffect(() => {
+    if (!props.recipes.loaded && !props.recipes.loading) {
+      props.getRecipes()
+    }
+  })
 
-export default Overview
+  return (
+    <Container>
+      <RecipesGrid>
+        {props.recipes.data.map((recipe) => (
+          <PreviewCard
+            key={recipe.id}
+            id={recipe.id}
+            name={recipe.name}
+            headline={recipe.headline}
+            image={recipe.image}
+            calories={recipe.calories}
+            time={recipe.time}
+            rating={recipe.rating}
+            averageRating={recipe.average_rating}
+            favorite={recipe.favorite}
+          />
+        ))}
+      </RecipesGrid>
+    </Container>
+  )
+}
+
+const mapStateToProps = (state) => ({
+  recipes: state.recipes
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getRecipes: () => dispatch(getRecipes())
+})
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(Overview)

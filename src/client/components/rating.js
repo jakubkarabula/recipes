@@ -4,6 +4,8 @@ import { pallette, sizes } from './constants'
 import { faStar as Star } from '@fortawesome/free-regular-svg-icons'
 import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { setRating, deleteRating } from '../redux/actions'
+import { connect } from 'react-redux'
 
 const getStarColor = (props) => {
   if (props.selected) {
@@ -21,24 +23,34 @@ const StarIcon = styled(FontAwesomeIcon)`
 const RatingWrapper = styled.div`
   font-size: 14px;
   color: #838383;
+  display: flex;
+  flex-direction: column;
+  height: 35px;
+  justify-content: space-between;
 `
 
 const RatingStar = (props) => (
   <StarIcon {...props} icon={props.selected ? SolidStar : Star} />
 )
 
-const useRating = (rating) => {
+const useRating = (rating, props) => {
   const [currentRating, setRating] = useState(rating)
 
   const saveRating = (value) => {
-    setRating(value)
+    if (currentRating === value) {
+      props.deleteRating(props.id)
+      setRating(0)
+    } else {
+      props.setRating(props.id, value)
+      setRating(value)
+    }
   }
 
   return [currentRating, saveRating]
 }
 
 const Rating = (props) => {
-  const [currentRating, setRating] = useRating(props.rating || 0)
+  const [currentRating, setRating] = useRating(props.rating || 0, props)
   const [ratingHover, setRatingHover] = useState(props.rating || 0)
   const ratingStars = []
 
@@ -66,4 +78,11 @@ const Rating = (props) => {
   )
 }
 
-export default Rating
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+  setRating: (id, rating) => dispatch(setRating(id, rating)),
+  deleteRating: (id) => dispatch(deleteRating(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Rating)

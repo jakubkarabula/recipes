@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Link from './Link'
 import PrimaryButton from './PrimaryButton.js'
@@ -6,6 +6,8 @@ import { sizes, MAIN_MAX_WIDTH, TOPBAR_HEIGHT } from './constants'
 import logoImage from '../assets/logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { logout, userDetails } from '../redux/actions'
+import { connect } from 'react-redux'
 
 const TopBarWrapper = styled.div`
   position: absolute;
@@ -36,19 +38,44 @@ const StyledIcon = styled(FontAwesomeIcon)`
   margin-left: 4px;
 `
 
-const TopBar = (props) => (
-  <TopBarWrapper>
-    <Content>
-      <Link to="/">
-        <Logo src={logoImage} />
-      </Link>
-      <Link to="/login">
-        <PrimaryButton>
-          Login <StyledIcon icon={faArrowRight} />
-        </PrimaryButton>
-      </Link>
-    </Content>
-  </TopBarWrapper>
-)
+const handleLogout = (props) => async () => {
+  await props.logout()
+  props.getUserDetails()
+}
 
-export default TopBar
+const TopBar = (props) => {
+  useEffect(() => {
+    if (!props.user.loaded && !props.user.loading) {
+      props.getUserDetails()
+    }
+  })
+
+  return (
+    <TopBarWrapper>
+      <Content>
+        <Link to="/">
+          <Logo src={logoImage} />
+        </Link>
+        {props.user.email ? (
+          <PrimaryButton onClick={handleLogout(props)}>Logout</PrimaryButton>
+        ) : (
+          <Link to="/login">
+            <PrimaryButton>
+              Login <StyledIcon icon={faArrowRight} />
+            </PrimaryButton>
+          </Link>
+        )}
+      </Content>
+    </TopBarWrapper>
+  )
+}
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
+  getUserDetails: () => dispatch(userDetails())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBar)

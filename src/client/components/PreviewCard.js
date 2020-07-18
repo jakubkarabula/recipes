@@ -11,7 +11,7 @@ const StyledPreviewCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 300px;
+  height: 320px;
   max-width: 270px;
   width: 100%;
   float: left;
@@ -41,9 +41,9 @@ const StyledIcon = styled(FontAwesomeIcon)`
 `
 
 const PreviewCard = (props) => (
-  <StyledPreviewCard>
+  <StyledPreviewCard key={props.key}>
     <PreviewImage src={props.image} />
-    <Favorite {...props} />
+    <Favorite id={props.id} favorite={props.favorite} />
 
     <Name>{props.name}</Name>
     <SubText>{props.headline}</SubText>

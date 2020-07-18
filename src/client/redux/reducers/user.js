@@ -1,4 +1,10 @@
-import { PENDING, FAILED, SUCCESS, LOGIN_ACTION } from '../constants'
+import {
+  PENDING,
+  FAILED,
+  SUCCESS,
+  LOGIN_ACTION,
+  USER_DETAILS_ACTION
+} from '../constants'
 
 const parseLoginError = (data) => {
   let error = 'Failed to login.'
@@ -12,23 +18,32 @@ const parseLoginError = (data) => {
   return error
 }
 
-const user = (state = {}, action) => {
+const initialState = {
+  loading: false,
+  loaded: false
+}
+
+const user = (state = initialState, action) => {
   switch (action.type) {
     case PENDING(LOGIN_ACTION):
+      return initialState
+    case FAILED(USER_DETAILS_ACTION):
       return {
-        loading: true,
-        error: null,
-        user: null
+        ...initialState,
+        loaded: true
       }
     case FAILED(LOGIN_ACTION):
       return {
         ...state,
+        loaded: true,
         loading: false,
         error: parseLoginError(action.data)
       }
+    case SUCCESS(USER_DETAILS_ACTION):
     case SUCCESS(LOGIN_ACTION):
       return {
         ...state,
+        loaded: true,
         loading: false,
         ...action.data
       }
