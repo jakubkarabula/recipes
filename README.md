@@ -77,3 +77,4 @@ I have added 2 tests suites with `Jest` to check Rating and Favorite components.
 * Average rating is right now calcualted every time rating is made, it's an unnecessary load on the database. It could be done in a cron job that runs once a day.
 * I have created a simple authentican / authorization system which uses application memory storage for sessions thus it drops the sessions when it stops. It would be better to use database for session storage and a proper authentication library like PassportJS. Same goes for passwords, currently they are stored in plain text in database.
 * I would add a notification system to inform users when they are failing to favorite or rate a recipe due to session or backend problems.
+* I would also add a docker setup to allow easy deployment to a server.
