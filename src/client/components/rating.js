@@ -53,7 +53,7 @@ const useRating = (rating, props) => {
   return [currentRating, saveRating]
 }
 
-const Rating = (props) => {
+export const Rating = (props) => {
   const [currentRating, setRating] = useRating(props.rating || 0, props)
   const [ratingHover, setRatingHover] = useState(props.rating || 0)
   const ratingStars = []
@@ -62,6 +62,7 @@ const Rating = (props) => {
     ratingStars.push(
       <RatingStar
         key={index}
+        id={`rating-${props.id}-${index}-${index <= currentRating}`}
         onClick={() => setRating(index)}
         selected={ratingHover ? index <= ratingHover : index <= currentRating}
         onMouseEnter={() => setRatingHover(index)}
@@ -73,7 +74,7 @@ const Rating = (props) => {
     <RatingWrapper onMouseLeave={() => setRatingHover(0)}>
       {props.user.email && <span>Your rating: {ratingStars}</span>}
       {props.averageRating > 0 && (
-        <span>
+        <span id={`average-rating-${props.id}`}>
           Average rating: {props.averageRating} <StarIcon icon={SolidStar} />
         </span>
       )}

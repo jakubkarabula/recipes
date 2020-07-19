@@ -42,7 +42,7 @@ const useFavorite = (props) => {
   return [favorite, updateFavorite]
 }
 
-const Favorite = (props) => {
+export const Favorite = (props) => {
   const [favorite, updateFavorite] = useFavorite(props)
 
   if (!props.user.email) {
@@ -51,6 +51,7 @@ const Favorite = (props) => {
 
   return (
     <FavoriteIcon
+      id={favorite ? `unfavorite-${props.id}` : `favorite-${props.id}`}
       onClick={() => updateFavorite(!favorite)}
       icon={favorite ? SolidHeart : Heart}
     />
