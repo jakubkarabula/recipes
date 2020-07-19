@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production webpack --mode production",
     "test": "NODE_ENV=test jest",
     "prettier": "prettier --write --single-quote 'src/**/*.js'",
+    "db:setup": "yarn db:migrate && yarn db:seed",
     "db:migrate": "yarn knex migrate:latest",
     "db:rollback": "yarn knex migrate:rollback",
     "db:seed": "yarn knex seed:run"

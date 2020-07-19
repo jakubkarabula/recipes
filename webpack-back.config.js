@@ -2,6 +2,8 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const WebpackShellPlugin = require('webpack-shell-plugin')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const config = {
   target: "node",
   entry: {
@@ -26,15 +28,19 @@ const config = {
     host: 'localhost',
     port: 4000,
   },
+  resolve: {
+    modules: ['node_modules', 'src']
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle-back.js"
+    filename: isProduction ? 'bundle-back.[hash].js' : 'bundle-back.js',
+    libraryTarget: 'commonjs2'
   },
   externals: [nodeExternals()],
   plugins: []
 };
 
-if (process.env.NODE_ENV !== 'production') {
+if (!isProduction) {
   config.plugins.push(new WebpackShellPlugin({onBuildEnd: ['nodemon dist/bundle-back.js --watch dist']}));
 }
 

@@ -1,7 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
+const isProduction = process.env.NODE_ENV === 'production'
+
+const config = {
   target: "web",
   entry: {
     app: [path.resolve(__dirname, "src", "client", "client.js")]
@@ -27,7 +29,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle-front.js",
+    filename: isProduction ? 'bundle-front.[hash].js' : 'bundle-front.js' 
   },
   devServer: {
     historyApiFallback: true,
@@ -38,5 +40,10 @@ module.exports = {
       template: path.resolve(__dirname, "src", "client", "assets", "index.html")
     })
   ],
-  devtool: 'inline-source-map',
 }
+
+if (isProduction) {
+  config.devtool = 'inline-source-map'
+}
+
+module.exports = config
