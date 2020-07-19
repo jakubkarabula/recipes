@@ -53,22 +53,25 @@ I have added 2 tests suites with `Jest` to check Rating and Favorite components.
 ### How to use
 * Upon visiting the homepage you can login [localhost:4000](http://localhost:4000)
 * The login form has validates email and password. Then authorizes the user.
-  * In seed file there are to users, they can be used to log in when testing the app. 
+  * In seed file there are to users, they can be used to log in when testing the app.
     * One of them is: `test@hellofresh.com / test`
 * Logged in user can favorite and rate recipes. Average rating will be calculated from all ratings.
 
 ![First screen](/screenshots/overview_not_logged_in.png)
 
-![First screen](/screenshots/login.png)
+![Login screen](/screenshots/login.png)
 
-![First screen](/screenshots/overview_logged_in.png)
+![Logged screen](/screenshots/overview_logged_in.png)
 
-![First screen](/screenshots/rating.png)
+![Rating](/screenshots/rating.png)
 
-![First screen](/screenshots/favorite.png)
+![Favorite](/screenshots/favorite.png)
+
+![Mobile](/screenshots/mobile.png)
+
+![Tablet](/screenshots/tablet.png)
 
 ### What would I change if I was planning to make a real production app
 * Average rating is right now calcualted every time rating is made, it's an unnecessary load on the database. It could be done in a cron job that runs once a day.
 * I have created a simple authentican / authorization system which uses application memory storage for sessions thus it drops the sessions when it stops. It would be better to use database for session storage and a proper authentication library like PassportJS. Same goes for passwords, currently they are stored in plain text in database.
 * I would add a notification system to inform users when they are failing to favorite or rate a recipe due to session or backend problems.
-
