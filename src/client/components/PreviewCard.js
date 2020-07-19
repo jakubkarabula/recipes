@@ -40,7 +40,7 @@ const StyledIcon = styled(FontAwesomeIcon)`
 `
 
 const PreviewCard = (props) => (
-  <StyledPreviewCard key={props.key}>
+  <StyledPreviewCard>
     <PreviewImage src={props.image} />
     <Favorite id={props.id} favorite={props.favorite} />
 

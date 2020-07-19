@@ -9,14 +9,14 @@ import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 
 const RecipesGrid = styled.div`
-  max-width: 300px;
+  max-width: 270px;
 
   @media (min-width: ${devices.tablet}) {
-    max-width: 870px;
+    max-width: 572px;
   }
 
   @media (min-width: ${devices.laptop}) {
-    max-width: 1160px;
+    max-width: 858px;
   }
 `
 
