@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { pallette, sizes } from './constants'
 import { faCalculator, faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Rating from './rating'
-import Favorite from './favorite'
+import Rating from './Rating'
+import Favorite from './Favorite'
 
 const StyledPreviewCard = styled.div`
   position: relative;
@@ -15,29 +15,28 @@ const StyledPreviewCard = styled.div`
   max-width: 270px;
   width: 100%;
   float: left;
-  margin-right: 20px;
-  margin-bottom: 30px;
+  margin-right: ${sizes.big}px;
+  margin-bottom: ${sizes.padding}px;
 `
 
 const PreviewImage = styled.img`
-  border-radius: 3px;
+  border-radius: ${sizes.imageBorderRadius}px;
   height: 170px;
-  box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px,
-    rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+  box-shadow: ${pallette.cardShadow};
 `
 
 const Name = styled.span`
-  font-size: 16px;
+  font-size: ${sizes.normalFont}px;
 `
 
 const SubText = styled.span`
-  font-size: 14px;
-  color: #838383;
+  font-size: ${sizes.smallFont}px;
+  color: ${pallette.labelColor};
 `
 
 const StyledIcon = styled(FontAwesomeIcon)`
-  margin-right: 4px;
-  color: #838383;
+  margin-right: ${sizes.small}px;
+  color: ${pallette.labelColor};
 `
 
 const PreviewCard = (props) => (

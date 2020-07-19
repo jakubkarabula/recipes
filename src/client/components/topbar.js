@@ -31,11 +31,11 @@ const Content = styled.div`
 `
 
 const Logo = styled.img`
-  height: 30px;
+  height: ${sizes.veryBig}px;
 `
 
 const StyledIcon = styled(FontAwesomeIcon)`
-  margin-left: 4px;
+  margin-left: ${sizes.small}px;
 `
 
 const handleLogout = (props) => async () => {

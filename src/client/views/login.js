@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import Container from '../components/container'
+import Container from '../components/Container'
 import Card from '../components/Card'
 import InputField from '../components/InputField'
 import PrimaryButton from '../components/PrimaryButton'
@@ -9,10 +9,11 @@ import { connect } from 'react-redux'
 import { login } from '../redux/actions'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
+import { pallette, sizes } from '../components/constants'
 
 const Form = styled.form`
   max-width: 500px;
-  padding: 30px;
+  padding: ${sizes.padding}px;
   min-width: 300px;
   display: flex;
   flex-direction: column;
@@ -21,12 +22,12 @@ const Form = styled.form`
 `
 
 const WelcomeText = styled.span`
-  font-size: 18px;
+  font-size: ${sizes.bigFont}px;
 `
 
 const ErrorText = styled.span`
-  font-size: 16px;
-  color: salmon;
+  font-size: ${sizes.normalFont}px;
+  color: ${pallette.error};
 `
 
 const handleSubmit = (props) => (event) => {

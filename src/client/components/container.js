@@ -1,10 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
-import { pallette } from './constants'
+import { pallette, sizes } from './constants'
 
 const Container = styled.div`
-  padding: 30px;
-  box-shadow: inset 0 3px 9px -7px rgba(0, 0, 0, 0.7);
+  padding: ${sizes.padding}px;
+  box-shadow: ${pallette.topShadow};
   display: flex;
   align-items: center;
   flex-direction: column;

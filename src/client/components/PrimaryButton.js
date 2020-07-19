@@ -1,15 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link as RouterLink } from 'react-router-dom'
 import { pallette, sizes } from './constants'
 
 const StyledPrimaryButton = styled.button`
   background-color: ${pallette.main[100]};
-  color: white;
+  color: ${pallette.white};
   border: 0;
   padding: ${sizes.base}px ${sizes.big}px;
   font-weight: bold;
-  border-radius: 14px;
+  border-radius: ${sizes.buttonRadius}px;
   cursor: pointer;
 
   &:hover {

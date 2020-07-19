@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import Container from '../components/container'
+import Container from '../components/Container'
 import PreviewCard from '../components/PreviewCard'
 import { devices } from '../components/constants'
 import { connect } from 'react-redux'

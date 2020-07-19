@@ -5,7 +5,8 @@ import {
   RECIPES_ACTION,
   LOGIN_ACTION,
   SET_RATING_ACTION,
-  DELETE_RATING_ACTION
+  DELETE_RATING_ACTION,
+  LOG_OUT_ACTION
 } from '../constants'
 
 const parseLoginError = () => {
@@ -48,12 +49,14 @@ const recipes = (state = initialState, action) => {
       }
     case SUCCESS(SET_RATING_ACTION): // fetch data again after substential change
     case SUCCESS(DELETE_RATING_ACTION):
-    case SUCCESS(LOGIN_ACTION):
       return {
         ...state,
         loaded: false,
         loading: false
       }
+    case PENDING(LOGIN_ACTION):
+    case SUCCESS(LOG_OUT_ACTION):
+      return initialState
     default:
       return state
   }

@@ -9,12 +9,12 @@ import { connect } from 'react-redux'
 
 const FavoriteIcon = styled(FontAwesomeIcon)`
   position: absolute;
-  top: 4px;
-  right: 4px;
-  background: white;
+  top: ${sizes.small}px;
+  right: ${sizes.small}px;
+  background: ${pallette.white};
   color: ${pallette.main[100]};
-  padding: 4px;
-  border-radius: 3px;
+  padding: ${sizes.small}px;
+  border-radius: ${sizes.imageBorderRadius}px;
   cursor: pointer;
 
   &:hover {
@@ -26,6 +26,10 @@ const useFavorite = (props) => {
   const [favorite, setFavorite] = useState(props.favorite || false)
 
   const updateFavorite = (favorite) => {
+    if (!props.user.email) {
+      return
+    }
+
     if (favorite) {
       props.favoriteRecipe(props.id)
     } else {
@@ -41,6 +45,10 @@ const useFavorite = (props) => {
 const Favorite = (props) => {
   const [favorite, updateFavorite] = useFavorite(props)
 
+  if (!props.user.email) {
+    return <div />
+  }
+
   return (
     <FavoriteIcon
       onClick={() => updateFavorite(!favorite)}
@@ -49,7 +57,9 @@ const Favorite = (props) => {
   )
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+  user: state.user
+})
 
 const mapDispatchToProps = (dispatch) => ({
   favoriteRecipe: (id) => dispatch(favoriteRecipe(id)),

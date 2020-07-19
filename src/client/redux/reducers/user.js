@@ -26,11 +26,15 @@ const initialState = {
 const user = (state = initialState, action) => {
   switch (action.type) {
     case PENDING(LOGIN_ACTION):
-      return initialState
-    case FAILED(USER_DETAILS_ACTION):
       return {
         ...initialState,
-        loaded: true
+        loading: true
+      }
+    case FAILED(USER_DETAILS_ACTION):
+      return {
+        ...state,
+        loaded: true,
+        loading: false
       }
     case FAILED(LOGIN_ACTION):
       return {

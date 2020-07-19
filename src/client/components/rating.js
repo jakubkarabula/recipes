@@ -11,7 +11,7 @@ const getStarColor = (props) => {
   if (props.selected) {
     return pallette.main[100]
   }
-  return '#838383'
+  return pallette.labelColor
 }
 
 const StarIcon = styled(FontAwesomeIcon)`
@@ -21,11 +21,11 @@ const StarIcon = styled(FontAwesomeIcon)`
 `
 
 const RatingWrapper = styled.div`
-  font-size: 14px;
-  color: #838383;
+  font-size: ${sizes.smallFont}px;
+  color: ${pallette.labelColor};
   display: flex;
   flex-direction: column;
-  height: 35px;
+  height: ${sizes.veryBig}px;
   justify-content: space-between;
 `
 
@@ -37,6 +37,10 @@ const useRating = (rating, props) => {
   const [currentRating, setRating] = useState(rating)
 
   const saveRating = (value) => {
+    if (!props.user.email) {
+      return
+    }
+
     if (currentRating === value) {
       props.deleteRating(props.id)
       setRating(0)
@@ -67,9 +71,8 @@ const Rating = (props) => {
 
   return (
     <RatingWrapper onMouseLeave={() => setRatingHover(0)}>
-      <span>Your rating: {ratingStars}</span>
-
-      {props.averageRating && (
+      {props.user.email && <span>Your rating: {ratingStars}</span>}
+      {props.averageRating > 0 && (
         <span>
           Average rating: {props.averageRating} <StarIcon icon={SolidStar} />
         </span>
@@ -78,7 +81,9 @@ const Rating = (props) => {
   )
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+  user: state.user
+})
 
 const mapDispatchToProps = (dispatch) => ({
   setRating: (id, rating) => dispatch(setRating(id, rating)),

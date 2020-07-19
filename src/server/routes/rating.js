@@ -36,14 +36,30 @@ rating.put('/', async (req, res) => {
     .catch((error) => res.status(500).send(error))
 })
 
-rating.delete('/', (req, res) => {
+rating.delete('/', async (req, res) => {
   authorization(req, res, true)
 
   const userId = req.session.user.id
   const recipeId = +req.sanitize(req.body['recipe_id'])
   const object = { user_id: userId, recipe_id: recipeId }
 
-  deleteIfExists(req, res)(tableName, object, object)
+  await deleteIfExists(req, res)(tableName, object, object)
+
+  dbConnection
+    .table(USER_RECIPES_RATINGS)
+    .where({ recipe_id: recipeId })
+    .avg('rating')
+    .then((ratings) => {
+      if (ratings.length > 0) {
+        return updateOrInsert(req, res)(
+          AVERAGE_RECIPES_RATINGS,
+          { recipe_id: recipeId },
+          { recipe_id: recipeId, average_rating: +ratings[0].avg }
+        )
+      }
+      res.status(404).send('recipe not found')
+    })
+    .catch((error) => res.status(500).send(error))
 })
 
 export default rating

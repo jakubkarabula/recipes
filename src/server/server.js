@@ -21,11 +21,6 @@ const sessionConfig = {
   }
 }
 
-if (isProduction) {
-  app.set('trust proxy', 1)
-  sessionConfig.cookie.secure = true
-}
-
 app.use(session(sessionConfig))
 
 app.use(bodyParser.urlencoded({ extended: true }))

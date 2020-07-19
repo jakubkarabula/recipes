@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import { pallette, sizes } from './constants'
 
 const StyledInput = styled.input`
-  padding: 10px;
-  border: 1px solid #d0d0d0;
-  border-radius: 2px;
-  width: calc(100% - 20px);
+  padding: ${sizes.base}px;
+  border: ${pallette.border};
+  border-radius: ${sizes.inputBorderRadius}px;
+  width: calc(100% - ${2 * sizes.base}px);
 `
 
 const InputLabel = styled.label`
   display: block;
   margin-bottom: ${sizes.small}px;
-  color: #7d7d7d;
+  color: ${pallette.labelColor};
 `
 
 const InputWrapper = styled.div`
