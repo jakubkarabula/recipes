@@ -1,4 +1,6 @@
 # HelloFresh Dev Team - Front-end Developer Test
+This repository contains an web example application showing recipes and allowing users to rate and favorite them. It is built with frontend in React.js that is serverd by Express.js backend which also server API and connects to a database.
+
 List of contents:
 - [How to set up](#user-content-how-to-set-up)
   - [Database](#user-content-database)
