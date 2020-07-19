@@ -7,10 +7,9 @@ import cors from 'cors'
 import expressSanitizer from 'express-sanitizer'
 
 const app = express()
-const port = 4000
-
+const port =  process.env.PORT || 4000
 const isProduction = process.env.NODE_ENV === 'production'
-const root = isProduction ? '.' : './dist'
+const root = './dist'
 
 const sessionConfig = {
   secret: '8e96a83e-0c49-4ab4-9dc9-35915c605717',

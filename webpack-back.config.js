@@ -33,7 +33,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: isProduction ? 'bundle-back.[hash].js' : 'bundle-back.js',
+    filename: isProduction ? 'bundle-back-prod.js' : 'bundle-back.js',
     libraryTarget: 'commonjs2'
   },
   externals: [nodeExternals()],
