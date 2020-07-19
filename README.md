@@ -51,7 +51,7 @@ To run the test use `yarn test`.
 I have added 2 tests suites with `Jest` to check Rating and Favorite components.
 
 ### How to use
-* Upon visiting the homepage you can login [localhost:4000](http://localhost:4000)
+* Upon visiting the homepage you can click Login [localhost:4000](http://localhost:4000)
 * The login form has validates email and password. Then authorizes the user.
   * In seed file there are to users, they can be used to log in when testing the app.
     * One of them is: `test@hellofresh.com / test`
