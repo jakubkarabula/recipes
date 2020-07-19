@@ -3,6 +3,7 @@ import {
   FAILED,
   SUCCESS,
   LOGIN_ACTION,
+  LOG_OUT_ACTION,
   USER_DETAILS_ACTION
 } from '../constants'
 
@@ -43,6 +44,8 @@ const user = (state = initialState, action) => {
         loading: false,
         error: parseLoginError(action.data)
       }
+    case SUCCESS(LOG_OUT_ACTION):
+      return initialState
     case SUCCESS(USER_DETAILS_ACTION):
     case SUCCESS(LOGIN_ACTION):
       return {

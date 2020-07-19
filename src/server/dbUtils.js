@@ -1,4 +1,4 @@
-const dbConnection = require('./dbConnection')
+import dbConnection from './dbConnection'
 
 /*
  * As far as I know there are no ready to use functions for conditional
